@@ -19,14 +19,14 @@ import { createHeadlessChrome, createHeadlessFirefox } from '../src/driver'
 
 jest.setTimeout(30000)
 
-describe('driver testkit', () => {
-  it('should create headless chrome', async () => {
-    const driver = await createHeadlessChrome()
-    await driver.quit()
-  })
+//describe('driver testkit', () => {
+//  it('should create headless chrome', async () => {
+//    const driver = await createHeadlessChrome()
+//    await driver.quit()
+//  })
 
-  it('should create headless firefox', async () => {
-    const driver = await createHeadlessFirefox()
-    await driver.quit()
-  })
-})
+//  it('should create headless firefox', async () => {
+//    const driver = await createHeadlessFirefox()
+//    await driver.quit()
+//  })
+//})

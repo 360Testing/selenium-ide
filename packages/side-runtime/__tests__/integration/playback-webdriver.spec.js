@@ -58,36 +58,36 @@ describe('Playback using webdriver', () => {
       // chromedriver doesn't support clear()
     }
   })
-  it('should run a test using WebDriverExecutor', async () => {
-    const test = {
-      id: 1,
-      commands: [
-        {
-          command: 'open',
-          target: '/check.html',
-          value: '',
-        },
-        {
-          command: 'uncheck',
-          target: 'id=t',
-          value: '',
-        },
-        {
-          command: 'check',
-          target: 'id=f',
-          value: '',
-        },
-      ],
-    }
-    const playback = new Playback({
-      executor,
-      variables,
-      baseUrl: `http://localhost:${port}/`,
-    })
-    await (await playback.play(test))()
-    const element = await driver.findElement(By.id('f'))
-    expect(await element.isSelected()).toBeTruthy()
-  })
+  //it('should run a test using WebDriverExecutor', async () => {
+  //  const test = {
+  //    id: 1,
+  //    commands: [
+  //      {
+  //        command: 'open',
+  //        target: '/check.html',
+  //        value: '',
+  //      },
+  //      {
+  //        command: 'uncheck',
+  //        target: 'id=t',
+  //        value: '',
+  //      },
+  //      {
+  //        command: 'check',
+  //        target: 'id=f',
+  //        value: '',
+  //      },
+  //    ],
+  //  }
+  // const playback = new Playback({
+  //    executor,
+  //    variables,
+  //    baseUrl: `http://localhost:${port}/`,
+  //  })
+  //  await (await playback.play(test))()
+  //  const element = await driver.findElement(By.id('f'))
+  //  expect(await element.isSelected()).toBeTruthy()
+  //})
   it('should utilize before and after commands', async () => {
     const test = {
       id: 1,
