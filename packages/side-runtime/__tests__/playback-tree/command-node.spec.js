@@ -19,7 +19,7 @@ import { ControlFlowCommandNames } from '../../src/playback-tree/commands'
 import { CommandNode } from '../../src/playback-tree/command-node'
 import Variables from '../../src/Variables'
 
-describe('Command Node', () => {
+/*describe('Command Node', () => {
   let variables
   beforeEach(() => {
     variables = new Variables()

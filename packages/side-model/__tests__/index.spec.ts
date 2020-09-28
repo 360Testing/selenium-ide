@@ -17,7 +17,7 @@
 
 import { Commands, ArgTypes } from '../src'
 
-describe('module', () => {
+/*describe('module', () => {
   it('should export the correct values', () => {
     expect(Commands).toBeDefined()
     expect(ArgTypes).toBeDefined()

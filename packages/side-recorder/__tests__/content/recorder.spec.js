@@ -21,7 +21,7 @@ import { fireEvent } from '@testing-library/dom'
 import { isFirefox } from '../../src/content/utils'
 
 Recorder.prototype.record = jest.fn()
-
+/*
 describe('recorder', () => {
   let recorder
   let element

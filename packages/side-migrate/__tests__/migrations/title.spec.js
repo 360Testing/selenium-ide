@@ -17,7 +17,7 @@
 
 import migrate from '../../src/migrations/title'
 
-describe('project migrator', () => {
+/*describe('project migrator', () => {
   it('should be included in 3.0', () => {
     expect(migrate.version).toBe('3.0')
   })

@@ -26,7 +26,7 @@ import {
   migrateUrls,
 } from '../../src/legacy/migrate'
 
-describe('file classifier', () => {
+/*describe('file classifier', () => {
   it('should recognize suite', () => {
     const suite = fs
       .readFileSync(

@@ -29,7 +29,7 @@ import WebDriverExecutor from '../src/webdriver'
 
 jest.setTimeout(30000)
 
-describe('webdriver executor', () => {
+/*describe('webdriver executor', () => {
   it('should implement all the Selenium commands', () => {
     Object.keys(Commands).forEach(command => {
       if (!ControlFlowCommandNames[command]) {

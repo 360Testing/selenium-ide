@@ -17,7 +17,7 @@
 
 import RecordPostprocessor from '../src'
 
-describe('recorder postprocessor', () => {
+/*describe('recorder postprocessor', () => {
   describe('recording', () => {
     it('should add commands to an empty test', () => {
       const prc = new RecordPostprocessor('https://google.com')

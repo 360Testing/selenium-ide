@@ -17,7 +17,7 @@
 
 import * as args from '../../src/args'
 
-describe('arguments index', () => {
+/*describe('arguments index', () => {
   it('should have all the arguments', () => {
     expect(Object.keys(args)).toEqual(
       expect.arrayContaining(['text', 'variable'])

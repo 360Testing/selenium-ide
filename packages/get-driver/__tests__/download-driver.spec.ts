@@ -22,7 +22,7 @@ import { spawn } from 'child_process'
 import downloadDriver from '../src/download-driver'
 
 jest.setTimeout(60_000)
-describe('download-driver', () => {
+/*describe('download-driver', () => {
   let tempDir: string
   beforeEach(async () => {
     tempDir = await createRandomDirectory()

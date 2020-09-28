@@ -17,7 +17,7 @@
 
 import { absolutifyUrl } from '../src/utils'
 
-describe('url absolutifier', () => {
+/*describe('url absolutifier', () => {
   it('should append to the base url', () => {
     expect(absolutifyUrl('/test.html', 'https://localhost')).toBe(
       'https://localhost/test.html'

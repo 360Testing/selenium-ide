@@ -16,7 +16,7 @@
 // under the License.
 
 import store from '../../src/commands/store'
-
+/*
 describe('store schema', () => {
   describe('validate', () => {
     it('text should be required', () => {

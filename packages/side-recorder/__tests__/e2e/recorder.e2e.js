@@ -24,7 +24,7 @@ import RecordPostprocessor from '@seleniumhq/side-recorder-postprocessor'
 const { By, until } = webdriver
 
 jest.setTimeout(300000)
-
+/*
 describe('recorder e2e', () => {
   let driver
   let server

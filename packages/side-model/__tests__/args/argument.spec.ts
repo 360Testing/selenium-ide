@@ -17,7 +17,7 @@
 
 import Argument from '../../src/args/argument'
 
-describe('argument schema', () => {
+/*describe('argument schema', () => {
   it('should be able to create an argument', () => {
     expect(
       new Argument({
