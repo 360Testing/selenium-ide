@@ -68,6 +68,12 @@ LocatorBuilders.prototype.buildAll = function(el) {
         if (e == fe) {
           locators.push([locator, finderName])
         }
+        if (finderName == "fullname"||locator.startsWith("fullname")){
+          locators.push([locator, finderName])
+        }
+        if(finderName == "title"||locator.startsWith("title")){
+          locators.push([locator, finderName])
+        }
       }
     } catch (e) {
       // TODO ignore the buggy locator builder for now
@@ -269,6 +275,69 @@ LocatorBuilders.prototype.preciseXPath = function(xpath, e) {
 
 // order listed dictates priority
 // e.g., 1st listed is top priority
+
+LocatorBuilders.add('fullname', function(e) {
+  var document = element.ownerDocument;
+  var eleName ="";
+  var textElement=element;
+  var count = 0;
+  if(element.getAttribute("aria-label")!==null && element.getAttribute("aria-label")!=""){
+      var eleName = element.getAttribute("aria-label");
+      var quickcount = 0
+      var elems = document.querySelectorAll("[aria-label='"+eleName+"']");
+      for (var i = 0; i < arrayLength; i++) {
+          quickcount = quickcount + 1
+          if(elems[i]==element){
+              count = quickcount;
+          }
+      }
+      eleName = eleName + " row"
+  } if(eleName=="" && element.textContent!=""){
+      var eleName= element.textContent.trim();
+  } if(eleName=="" && element.getAttribute("aria-labelledby")!==null && element.getAttribute("aria-labelledby")!="") {
+      var id_to_find = element.getAttribute("aria-labelledby");
+      var ele = document.getElementById(id_to_find);
+      eleName = ele.textContent.trim();
+      textElement = ele;
+  } if(eleName=="" && document.querySelectorAll('[for='+element.id+']')[0] !== undefined) {
+      var ele = document.querySelectorAll('[for='+element.id+']')[0];
+      eleName = ele.text().trim();
+      textElement = ele;
+  } if(eleName=="" && element.getAttribute("aria-label")!==null && element.getAttribute("aria-label")!="") {
+      var text = element.getAttribute("aria-label");
+      eleName =  text;
+  } if(eleName=="" && element.getAttribute("value")!==null && element.getAttribute("value")!="") {
+      var text = element.getAttribute("value");
+      eleName = text;
+  } if(eleName=="" && element.getAttribute("title")!==null && element.getAttribute("title")!="") {
+      var text = element.getAttribute("title");
+      eleName = text;
+  } if(eleName=="" && element.getAttribute("id")!==null && element.getAttribute("id")!="") {
+      var text = element.getAttribute("id");
+      eleName = text;
+  } if(eleName==""){
+    eleName = "unnamed";
+  }
+  
+  var elems = document.querySelectorAll("*")
+  var arrayLength = elems.length;
+  
+  if(eleName != "unnamed" && count>1){
+      eleName = eleName+"["+count+"]";
+  }
+  
+  if(eleName != "unnamed" && count==0){
+      for (var i = 0; i < arrayLength; i++) {
+          if(elems[i].textContent == eleName){
+              count = count + 1;
+          }
+          if(count>1 && elems[i]==textElement){
+              eleName = eleName+"["+count+"]";
+          }
+      }
+  }
+  return "fullname="+eleName;
+})
 
 LocatorBuilders.add('css:data-attr', function cssDataAttr(e) {
   const dataAttributes = ['data-test', 'data-test-id']
@@ -499,4 +568,9 @@ LocatorBuilders.add('xpath:innerText', function xpathInnerText(el) {
   } else {
     return null
   }
+})
+
+LocatorBuilders.add('title', function(e) {
+  var document = e.ownerDocument;
+  return "title="+document.title;
 })
