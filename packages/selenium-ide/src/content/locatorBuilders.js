@@ -277,6 +277,7 @@ LocatorBuilders.prototype.preciseXPath = function(xpath, e) {
 // e.g., 1st listed is top priority
 
 LocatorBuilders.add('fullname', function(e) {
+  var element = e;
   var document = element.ownerDocument;
   var eleName ="";
   var textElement=element;
