@@ -1469,9 +1469,7 @@ BrowserBot.prototype._registerAllLocatorFunctions = function() {
   this.findElementBy = function(locatorType, locator, inDocument, inWindow) {
     let locatorFunction = this.locationStrategies[locatorType]
     if (!locatorFunction) {
-      throw new SeleniumError(
-        "Unrecognised locator type: '" + locatorType + "'"
-      )
+      return null;
     }
     return locatorFunction.call(this, locator, inDocument, inWindow)
   }
