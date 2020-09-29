@@ -59,7 +59,7 @@ describe('recording syncronizer webdriver', () => {
     }
   })
 
-  /*it('should syncronize the current window with the recorder through hooks', async () => {
+  it('should syncronize the current window with the recorder through hooks', async () => {
     const test = {
       id: 1,
       commands: [
@@ -106,7 +106,7 @@ describe('recording syncronizer webdriver', () => {
     expect(handleCalls.length).toBe(1)
     expect(handleCalls[0].sessionId).toBe('default')
     expect(handleCalls[0].windowHandle).toBe('current')
-  })*/
+  })
 
   it('should syncronize a new window with the recorder through hooks', async () => {
     const test = {
