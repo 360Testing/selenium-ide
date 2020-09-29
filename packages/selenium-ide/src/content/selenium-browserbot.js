@@ -1820,6 +1820,14 @@ BrowserBot.prototype.locateElementByName = function(locator, document) {
 }
 
 /**
+ * Find an element by name, refined by (optional) element-filter
+ * expressions.
+ */
+BrowserBot.prototype.locateElementByFullname = function(locator, document) {
+  return null
+}
+
+/**
  * Finds an element using by evaluating the specfied string.
  */
 BrowserBot.prototype.locateElementByDomTraversal = function(domTraversal) {
