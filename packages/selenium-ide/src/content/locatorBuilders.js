@@ -344,7 +344,7 @@ LocatorBuilders.add('fullname', function(e) {
           }
       }
   }
-  return "fullname="+eleName;
+  return eleName;
 })
 
 LocatorBuilders.add('css:data-attr', function cssDataAttr(e) {
