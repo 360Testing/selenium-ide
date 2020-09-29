@@ -17,7 +17,7 @@
 
 import migrate from '../../src/migrations/select-window'
 
-/*describe('project migrator', () => {
+describe('project migrator', () => {
   it('should be included in 2.0', () => {
     expect(migrate.version).toBe('2.0')
   })

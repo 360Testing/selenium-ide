@@ -17,7 +17,7 @@
 
 import migrate from '../../src/migrations/wait-for-commands'
 
-/*describe('project migrator', () => {
+describe('project migrator', () => {
   it('should be included in 1.1', () => {
     expect(migrate.version).toBe('1.1')
   })

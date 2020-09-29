@@ -19,7 +19,7 @@ import * as os from 'os'
 import nock from 'nock'
 import { resolveDriverUrl, resolveDriverName } from '../src/resolve-driver'
 
-/*describe('resolve-driver', () => {
+describe('resolve-driver', () => {
   describe('resolveDriverUrl', () => {
     it('should resolve a download link of an electron driver', async () => {
       expect(

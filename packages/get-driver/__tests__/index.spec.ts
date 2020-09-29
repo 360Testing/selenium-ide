@@ -17,7 +17,7 @@
 
 import * as index from '../src'
 
-/*describe('get-driver', () => {
+describe('get-driver', () => {
   it('should export all the required things', () => {
     expect(index.downloadDriver).toBeDefined()
     expect(index.resolveDriverUrl).toBeDefined()

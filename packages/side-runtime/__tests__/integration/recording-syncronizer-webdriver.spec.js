@@ -25,7 +25,7 @@ import createRecorderSyncronizerForWebdriverExecutor from '../../src/recording-s
 
 jest.setTimeout(30000)
 
-/*describe('recording syncronizer webdriver', () => {
+describe('recording syncronizer webdriver', () => {
   const app = createStaticSite()
   let port, close, driver, executor, variables
   beforeAll(async () => {
@@ -108,7 +108,7 @@ jest.setTimeout(30000)
     expect(handleCalls[0].windowHandle).toBe('current')
   })*/
 
-  /*it('should syncronize a new window with the recorder through hooks', async () => {
+  it('should syncronize a new window with the recorder through hooks', async () => {
     const test = {
       id: 1,
       commands: [
@@ -160,7 +160,7 @@ jest.setTimeout(30000)
     expect(handleCalls[0].sessionId).toBe('default')
     expect(handleCalls[0].windowHandle).toBe('new')
   })
-  */
+
   it('should syncronize a new window with the recorder manually', async () => {
     const test = {
       id: 1,
@@ -217,7 +217,7 @@ jest.setTimeout(30000)
     expect(handleCalls[0].sessionId).toBe('default')
     expect(handleCalls[0].windowHandle).toBe('new')
   })
-  /*
+
   it('should syncronize a new window with the recorder through hooks', async () => {
     const test = {
       id: 1,
@@ -260,7 +260,7 @@ jest.setTimeout(30000)
     expect(contextCalls[0].sessionId).toBe('default')
   })
 })
-*/
+
 async function getPageScriptCalls(driver) {
   return await driver.executeScript(
     'return {handleCalls: window.__side.handleCalls, contextCalls: window.__side.contextCalls}'

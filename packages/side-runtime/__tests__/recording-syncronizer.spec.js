@@ -17,7 +17,7 @@
 
 import createRecorderSyncronizer from '../src/recording-syncronizer'
 
-/*describe('recording syncronizer', () => {
+describe('recording syncronizer', () => {
   it('should sync the current window', async () => {
     const executeAsyncScript = jest.fn()
     const {

@@ -17,7 +17,7 @@
 
 import * as index from '../src'
 
-/*describe('webdriver-testkit', () => {
+describe('webdriver-testkit', () => {
   it('should export all the required things', () => {
     expect(index.updateDrivers).toBeDefined()
     expect(index.createDriver).toBeDefined()

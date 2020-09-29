@@ -17,7 +17,7 @@
 
 import Callstack from '../src/callstack'
 
-/*describe('Call stack', () => {
+describe('Call stack', () => {
   it('should be able to call and unwind', () => {
     const callee = {
       id: 2,

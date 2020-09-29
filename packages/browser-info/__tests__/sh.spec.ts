@@ -17,7 +17,7 @@
 
 import { sh } from '../src/sh'
 
-/*describe('sh', () => {
+describe('sh', () => {
   it('should run a process', async () => {
     try {
       await sh('node', ['-e', '""'])

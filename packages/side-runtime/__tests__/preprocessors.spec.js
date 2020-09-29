@@ -29,7 +29,7 @@ beforeEach(() => {
   variables = new Variables()
 })
 
-/*describe('preprocessor composition', () => {
+describe('preprocessor composition', () => {
   it('should do nothing if the command takes no arguments', () => {
     const fn = jest.fn()
     const f = composePreprocessors(fn)

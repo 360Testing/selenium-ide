@@ -16,7 +16,7 @@
 // under the License.
 
 import variable from '../../src/args/variable'
-/*
+
 describe('variable schema', () => {
   describe('verify', () => {
     it('should verify a valid variable name', () => {

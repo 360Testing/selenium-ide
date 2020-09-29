@@ -18,7 +18,7 @@
 import ArgType from '../../src/args/arg-type'
 import Argument from '../../src/args/argument'
 
-/*describe('ArgType', () => {
+describe('ArgType', () => {
   describe('exact', () => {
     it('should extend an argument', () => {
       const argInput = new Argument({

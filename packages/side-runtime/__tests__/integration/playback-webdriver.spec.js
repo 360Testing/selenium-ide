@@ -25,7 +25,7 @@ import WebDriverExecutor from '../../src/webdriver'
 
 jest.setTimeout(30000)
 
-/*describe('Playback using webdriver', () => {
+describe('Playback using webdriver', () => {
   const app = createStaticSite()
   let port, close, driver, executor, variables
   beforeAll(async () => {

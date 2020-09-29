@@ -18,7 +18,7 @@
 import Command from '../../src/commands/command'
 import ArgType from '../../src/args/arg-type'
 import Argument from '../../src/args/argument'
-/*
+
 describe('command', () => {
   it('should have name and description', () => {
     const cmd = new Command({

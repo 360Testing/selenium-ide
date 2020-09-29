@@ -26,7 +26,7 @@ function createCommand(command) {
   }
 }
 
-/*describe('Control Flow', () => {
+describe('Control Flow', () => {
   describe('Preprocess', () => {
     describe('Syntax Validation', () => {
       test('if, end', () => {

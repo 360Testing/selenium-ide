@@ -25,7 +25,7 @@ import { AssertionError, VerificationError } from '../src/errors'
 import FakeExecutor from './util/FakeExecutor'
 import Variables from '../src/Variables'
 
-/*describe('Playback', () => {
+describe('Playback', () => {
   describe('Event emitting', () => {
     describe('Control Flow', () => {
       it('forEach', async () => {

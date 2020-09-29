@@ -17,7 +17,7 @@
 
 import UpgradeProject, { VERSIONS } from '../src/migrate'
 
-/*describe('project migrator', () => {
+describe('project migrator', () => {
   it('should migrate a project to the latest version', () => {
     const project = {
       tests: [],

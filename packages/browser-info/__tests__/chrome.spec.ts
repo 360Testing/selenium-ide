@@ -25,7 +25,7 @@ const { getBrowserInfo, ChromeChannel } = Chrome
 const mockSh = (sh as unknown) as jest.Mock<any, any>
 const mockPlatform = (os.platform as unknown) as jest.Mock<any, any>
 
-/*describe('chrome browser info', () => {
+describe('chrome browser info', () => {
   describe('macOS', () => {
     beforeAll(() => {
       mockPlatform.mockReturnValue('darwin')

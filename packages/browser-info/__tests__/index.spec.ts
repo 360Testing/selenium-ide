@@ -17,7 +17,7 @@
 
 import * as index from '../src'
 
-/*describe('browser-info', () => {
+describe('browser-info', () => {
   it('should export all the required things', () => {
     expect(index.Chrome.getBrowserInfo).toBeDefined()
   })

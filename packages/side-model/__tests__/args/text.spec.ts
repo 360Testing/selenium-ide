@@ -16,7 +16,7 @@
 // under the License.
 
 import text from '../../src/args/text'
-/*
+
 describe('text schema', () => {
   describe('validate', () => {
     it('should allow text', () => {
