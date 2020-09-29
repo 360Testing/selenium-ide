@@ -330,7 +330,14 @@ LocatorBuilders.add('fullname', function(e) {
   if(eleName != "unnamed" && count==0){
       for (var i = 0; i < arrayLength; i++) {
           if(elems[i].textContent == eleName){
-              count = count + 1;
+              var rect = elems[i].getBoundingClientRect();
+              console.log(rect.top, rect.right, rect.bottom, rect.left);
+              if(rect.top ==0 && rect.right ==0 && rect.bottom == 0 && rect.left ==0){
+                //log element not visible?
+              }
+              else{
+                count = count + 1;
+              }
           }
           if(count>1 && elems[i]==textElement){
               eleName = eleName+"["+count+"]";
