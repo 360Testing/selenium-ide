@@ -330,23 +330,55 @@ LocatorBuilders.add('fullname', function(e) {
       eleName = eleName+"["+count+"]";
   }
   
-  if(eleName != "unnamed" && count==0){
-      for (var i = 0; i < arrayLength; i++) {
-          if(elems[i].textContent == eleName){
-              var rect = elems[i].getBoundingClientRect();
-              console.log(rect.top, rect.right, rect.bottom, rect.left);
-              if(rect.top ==0 && rect.right ==0 && rect.bottom == 0 && rect.left ==0){
-                //log element not visible?
-              }
-              else{
-                count = count + 1;
-              }
-          }
-          if(count>1 && elems[i]==textElement){
-              eleName = eleName+"["+count+"]";
-          }
-      }
-  }
+  function isDescendant(parent, child) {
+    var node = child.parentNode;
+    while (node != null) {
+        if (node == parent) {
+            return true;
+        }
+        node = node.parentNode;
+    }
+    return false;
+}
+
+
+if(eleName != "unnamed" && count==0){
+   var visibleEles = [];
+     for (var i = 0; i < arrayLength; i++) {
+         if(elems[i].textContent == eleName){
+             var rect = elems[i].getBoundingClientRect();
+             
+             if(rect.top ==0 && rect.right ==0 && rect.bottom == 0 && rect.left ==0){
+               //log element not visible?
+             }
+             else{
+                 if(i>0){
+                     var isDesc = false;
+                     for (var j = 0; j < visibleEles.length; j++) {
+                       if(isDescendant(visibleEles[j],elems[i])){
+                           isDesc = true
+                       }
+                     }
+                     if(!isDesc){
+                         count = count+1
+                         visibleEles[visibleEles.length-1] = elems[i]
+                     }
+                 }else{
+                   visibleEles[0] = elems[i]
+                   count = count + 1;
+                 }
+               
+               //console.log(rect.top, rect.right, rect.bottom, rect.left);
+               //console.log(document.defaultView.getComputedStyle(elems[i], "").getPropertyValue("display"));
+         //console.log(document.defaultView.getComputedStyle(elems[i], "").getPropertyValue("visibility"));
+               //console.log(elems[i])
+             }
+         }
+         if(count>1 && elems[i]==textElement){
+             eleName = eleName+"["+count+"]";
+         }
+     }
+ }
   return eleName;
 })
 
