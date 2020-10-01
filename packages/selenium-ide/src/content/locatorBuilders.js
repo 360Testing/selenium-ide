@@ -292,7 +292,9 @@ LocatorBuilders.add('fullname', function(e) {
               count = quickcount;
           }
       }
-      eleName = eleName + " row"
+      if(element.getAttribute("data-colindex")!==null && element.getAttribute("data-colindex")!=""){
+        eleName = eleName + " row"
+      }
   } if(eleName=="" && element.textContent!=""){
       var eleName= element.textContent.trim();
   } if(eleName=="" && element.getAttribute("aria-labelledby")!==null && element.getAttribute("aria-labelledby")!="") {
