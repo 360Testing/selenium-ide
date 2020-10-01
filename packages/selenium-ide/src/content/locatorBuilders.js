@@ -349,7 +349,7 @@ if(eleName != "unnamed" && count==0){
                //log element not visible?
              }
              else{
-                 if(i>0){
+                 if(visibleEles.length>0){
                      var isDesc = false;
                      for (var j = 0; j < visibleEles.length; j++) {
                        if(isDescendant(visibleEles[j],elems[i])){
