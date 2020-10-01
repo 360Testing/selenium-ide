@@ -181,10 +181,12 @@ function runNextCommand() {
     })
   } else if (isImplicitWait(command)) {
     notifyWaitDeprecation(command)
+    PlaybackState.currentExecutingCommandNode.command.setTarget(originalTarget)
     return PlaybackState.isSingleCommandRunning
       ? Promise.resolve()
       : executionLoop()
   } else {
+    PlaybackState.currentExecutingCommandNode.command.setTarget(originalTarget)
     return doPreWait()
       .then(doPreparation)
       .then(doPrePageWait)
