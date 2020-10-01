@@ -54,9 +54,6 @@ export function parse_locator(locator, silent = false) {
       },
     })
   }
-  if(implicitType == "fullname"){
-    return { type: 'xpath', string: '//brokenxpath' }
-  }
   return { type: implicitType, string: locator }
 }
 
