@@ -1488,8 +1488,8 @@ BrowserBot.prototype._registerAllLocatorFunctions = function() {
     if (locator.startsWith('document.')) {
       return this.locateElementByDomTraversal(locator, inDocument, inWindow)
     }
-    return null;
-    //return this.locateElementByIdentifier(locator, inDocument, inWindow)
+    //return null;
+    return this.locateElementByIdentifier(locator, inDocument, inWindow)
   }
 }
 
