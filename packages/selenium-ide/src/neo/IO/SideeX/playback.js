@@ -122,7 +122,12 @@ function runNextCommand() {
   Logger.warn(
     'target currently '+PlaybackState.currentExecutingCommandNode.command.target
   )
-  //PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[1])
+  if(PlaybackState.currentExecutingCommandNode.command.targets[1][1]=="fullname"){
+    PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[1][0])
+  }else{
+    PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[2][0])
+  }
+  //PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[1][0])
   const command = PlaybackState.currentExecutingCommandNode.command
   const stackIndex = PlaybackState.callstack.length
     ? PlaybackState.callstack.length - 1
