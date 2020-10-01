@@ -116,6 +116,10 @@ function executionLoop() {
 }
 
 function runNextCommand() {
+  Logger.warn(
+    'Setting target to '+PlaybackState.currentExecutingCommandNode.command.targets[1]
+  )
+  PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[1])
   const command = PlaybackState.currentExecutingCommandNode.command
   const stackIndex = PlaybackState.callstack.length
     ? PlaybackState.callstack.length - 1
