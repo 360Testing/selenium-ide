@@ -29,7 +29,7 @@ let ignoreBreakpoint = false
 let breakOnNextCommand = false
 let executor = undefined
 var prevTarget = ""
-var preCommand = ""
+var prevCommand = ""
 
 export function play(currUrl, exec, variables) {
   baseUrl = currUrl
