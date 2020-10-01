@@ -28,6 +28,8 @@ let baseUrl = ''
 let ignoreBreakpoint = false
 let breakOnNextCommand = false
 let executor = undefined
+var prevTarget = ""
+var preCommand = ""
 
 export function play(currUrl, exec, variables) {
   baseUrl = currUrl
@@ -116,7 +118,13 @@ function executionLoop() {
 }
 
 function runNextCommand() {
-  var originalTarget = PlaybackState.currentExecutingCommandNode.command.target
+  if(prevTarget!=""){
+    if(prevCommand!=""){
+      prevCommand.setTarget(prevTarget)
+    }
+  }
+  prevTarget = PlaybackState.currentExecutingCommandNode.command.target
+  prevCommand = PlaybackState.currentExecutingCommandNode.command
   if(PlaybackState.currentExecutingCommandNode.command.targets.length>0){
     Logger.warn(
       'Setting target to '+PlaybackState.currentExecutingCommandNode.command.targets[1]
@@ -173,20 +181,16 @@ function runNextCommand() {
             stackIndex,
             PlaybackStates.Passed
           )
-          //set back target
-          PlaybackState.currentExecutingCommandNode.command.setTarget(originalTarget)
           PlaybackState.setCurrentExecutingCommandNode(result.next)
         })
         .then(PlaybackState.isSingleCommandRunning ? () => {} : executionLoop)
     })
   } else if (isImplicitWait(command)) {
     notifyWaitDeprecation(command)
-    PlaybackState.currentExecutingCommandNode.command.setTarget(originalTarget)
     return PlaybackState.isSingleCommandRunning
       ? Promise.resolve()
       : executionLoop()
   } else {
-    PlaybackState.currentExecutingCommandNode.command.setTarget(originalTarget)
     return doPreWait()
       .then(doPreparation)
       .then(doPrePageWait)
@@ -217,6 +221,11 @@ function prepareToPlayAfterConnectionFailed() {
 }
 
 async function finishPlaying() {
+  if(prevTarget!=""){
+    if(prevCommand!=""){
+      prevCommand.setTarget(prevTarget)
+    }
+  }
   if (!PlaybackState.paused) {
     if (executor.cleanup) {
       await executor.cleanup()
