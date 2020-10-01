@@ -86,9 +86,6 @@ LocatorBuilders.prototype.buildAll = function(el) {
 LocatorBuilders.prototype.findElement = function(loc) {
   try {
     const locator = parse_locator(loc, true)
-    if(locator.type == "fullname"){
-      return null;
-    }
     return bot.locators.findElement(
       { [locator.type]: locator.string },
       this.window.document
