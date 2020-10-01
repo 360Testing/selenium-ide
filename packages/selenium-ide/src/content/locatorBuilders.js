@@ -300,7 +300,7 @@ LocatorBuilders.add('fullname', function(e) {
       var ele = document.getElementById(id_to_find);
       eleName = ele.textContent.trim();
       textElement = ele;
-  } if(eleName=="" && element.id!="" && element.id != null && element.id !== undefined) {
+  } if(eleName=="" && element.id!="" && element.id != null && element.id !== undefined && document.querySelectorAll('[for='+element.id+']').length>0) {
       var ele = document.querySelectorAll('[for='+element.id+']')[0];
       eleName = ele.text().trim();
       textElement = ele;
