@@ -116,16 +116,18 @@ function executionLoop() {
 }
 
 function runNextCommand() {
-  Logger.warn(
-    'Setting target to '+PlaybackState.currentExecutingCommandNode.command.targets[1]
-  )
-  Logger.warn(
-    'target currently '+PlaybackState.currentExecutingCommandNode.command.target
-  )
-  if(PlaybackState.currentExecutingCommandNode.command.targets[1][1]=="fullname"){
-    PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[1][0])
-  }else{
-    PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[2][0])
+  if(PlaybackState.currentExecutingCommandNode.command.targets.length>0){
+    Logger.warn(
+      'Setting target to '+PlaybackState.currentExecutingCommandNode.command.targets[1]
+    )
+    Logger.warn(
+      'target currently '+PlaybackState.currentExecutingCommandNode.command.target
+    )
+    if(PlaybackState.currentExecutingCommandNode.command.targets[1][1]=="fullname"){
+      PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[1][0])
+    }else{
+      PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[2][0])
+    }
   }
   //PlaybackState.currentExecutingCommandNode.command.setTarget(PlaybackState.currentExecutingCommandNode.command.targets[1][0])
   const command = PlaybackState.currentExecutingCommandNode.command
