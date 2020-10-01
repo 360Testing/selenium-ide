@@ -309,7 +309,10 @@ LocatorBuilders.add('fullname', function(e) {
   } if(eleName=="" && element.getAttribute("aria-label")!==null && element.getAttribute("aria-label")!="") {
       var text = element.getAttribute("aria-label");
       eleName =  text;
-  } if(eleName=="" && element.getAttribute("value")!==null && element.getAttribute("value")!="") {
+  } if(eleName=="" && element.getAttribute("data-dyn-title")!==null && element.getAttribute("data-dyn-title")!="") {
+    var text = element.getAttribute("data-dyn-title");
+    eleName = text;
+  }if(eleName=="" && element.getAttribute("value")!==null && element.getAttribute("value")!="") {
       var text = element.getAttribute("value");
       eleName = text;
   } if(eleName=="" && element.getAttribute("title")!==null && element.getAttribute("title")!="") {
