@@ -116,6 +116,7 @@ function executionLoop() {
 }
 
 function runNextCommand() {
+  var originalTarget = PlaybackState.currentExecutingCommandNode.command.target
   if(PlaybackState.currentExecutingCommandNode.command.targets.length>0){
     Logger.warn(
       'Setting target to '+PlaybackState.currentExecutingCommandNode.command.targets[1]
@@ -172,6 +173,8 @@ function runNextCommand() {
             stackIndex,
             PlaybackStates.Passed
           )
+          //set back target
+          PlaybackState.currentExecutingCommandNode.command.setTarget(originalTarget)
           PlaybackState.setCurrentExecutingCommandNode(result.next)
         })
         .then(PlaybackState.isSingleCommandRunning ? () => {} : executionLoop)
