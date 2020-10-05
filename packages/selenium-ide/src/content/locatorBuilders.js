@@ -269,14 +269,7 @@ LocatorBuilders.prototype.preciseXPath = function(xpath, e) {
   return 'xpath=' + xpath
 }
 
-/*
- * ===== builders =====
- */
-
-// order listed dictates priority
-// e.g., 1st listed is top priority
-
-LocatorBuilders.add('fullname', function(e) {
+function getFullName(e, count) {
   var element = e;
   var document = element.ownerDocument;
   var eleName ="";
@@ -311,6 +304,9 @@ LocatorBuilders.add('fullname', function(e) {
       eleName =  text;
   } if(eleName=="" && element.getAttribute("data-dyn-title")!==null && element.getAttribute("data-dyn-title")!="") {
     var text = element.getAttribute("data-dyn-title");
+    eleName = text;
+  }if(eleName=="" && element.getAttribute("alt")!==null && element.getAttribute("alt")!="") {
+    var text = element.getAttribute("alt");
     eleName = text;
   }if(eleName=="" && element.getAttribute("value")!==null && element.getAttribute("value")!="") {
       var text = element.getAttribute("value");
@@ -381,7 +377,24 @@ if(eleName != "unnamed" && count==0){
          }
      }
  }
+  if(eleName == "unnamed"){
+    if(count < 6){
+      getFullName(e.parentNode, count+1)
+    }
+  }
   return eleName;
+}
+
+
+/*
+ * ===== builders =====
+ */
+
+// order listed dictates priority
+// e.g., 1st listed is top priority
+
+LocatorBuilders.add('fullname', function(e) {
+  return getFullName(e, 0);
 })
 
 LocatorBuilders.add('css:data-attr', function cssDataAttr(e) {
