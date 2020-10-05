@@ -89,7 +89,7 @@ class WelcomeDialogContents extends React.Component {
         renderTitle={() => (
           <div>
             <div className="welcome-dialog__title">
-              Welcome to Selenium IDE!
+              Welcome to The Test Mart Recorder!
             </div>
             <div className="welcome-dialog__subtitle">
               Version {project.version}
@@ -98,13 +98,13 @@ class WelcomeDialogContents extends React.Component {
         )}
         renderFooter={() => (
           <p>
-            To learn more on Selenium IDE and how to use it visit the{' '}
+            To learn more on The Test Mart Recorder and how to use it visit the{' '}
             <a
-              href="https://www.seleniumhq.org/selenium-ide/"
+              href="https://www.thetestmart.com/"
               target="_blank"
               rel="noopener noreferrer"
             >
-              the Selenium IDE project page
+              the The Test Mart Recorder project page
             </a>
             .
           </p>
