@@ -269,7 +269,7 @@ LocatorBuilders.prototype.preciseXPath = function(xpath, e) {
   return 'xpath=' + xpath
 }
 
-function getFullName(e, count) {
+function getFullName(e, loopCount) {
   var element = e;
   var document = element.ownerDocument;
   var eleName ="";
@@ -378,8 +378,8 @@ if(eleName != "unnamed" && count==0){
      }
  }
   if(eleName == "unnamed"){
-    if(count < 6){
-      getFullName(e.parentNode, count+1)
+    if(loopCount < 6){
+      eleName = getFullName(e.parentNode, loopCount+1)
     }
   }
   return eleName;
