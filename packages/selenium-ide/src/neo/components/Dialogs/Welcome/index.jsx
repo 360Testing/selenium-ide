@@ -130,7 +130,7 @@ class WelcomeDialogContents extends React.Component {
               <a onClick={this.createNewProject}>Create a new project</a>
             </li>
             <li>
-              <a onClick={this.dismiss}>Close Selenium IDE</a>
+              <a onClick={this.dismiss}>Close Recorder</a>
             </li>
           </ul>
         </div>

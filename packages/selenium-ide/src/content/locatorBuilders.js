@@ -288,20 +288,20 @@ function getFullName(e, loopCount) {
       if(element.getAttribute("data-colindex")!==null && element.getAttribute("data-colindex")!=""){
         eleName = eleName + " row"
       }
-  } if(eleName=="" && element.textContent!=""){
+  } if(eleName=="" && element.id!="" && element.id != null && element.id !== undefined && document.querySelectorAll('[for='+element.id+']').length>0) {
+    var ele = document.querySelectorAll('[for='+element.id+']')[0];
+    eleName = ele.textContent.trim();
+    textElement = ele;
+} if(eleName=="" && element.getAttribute("aria-label")!==null && element.getAttribute("aria-label")!="") {
+    var text = element.getAttribute("aria-label");
+    eleName =  text;
+}if(eleName=="" && element.textContent!=""){
       var eleName= element.textContent.trim();
   } if(eleName=="" && element.getAttribute("aria-labelledby")!==null && element.getAttribute("aria-labelledby")!="") {
       var id_to_find = element.getAttribute("aria-labelledby");
       var ele = document.getElementById(id_to_find);
       eleName = ele.textContent.trim();
       textElement = ele;
-  } if(eleName=="" && element.id!="" && element.id != null && element.id !== undefined && document.querySelectorAll('[for='+element.id+']').length>0) {
-      var ele = document.querySelectorAll('[for='+element.id+']')[0];
-      eleName = ele.textContent.trim();
-      textElement = ele;
-  } if(eleName=="" && element.getAttribute("aria-label")!==null && element.getAttribute("aria-label")!="") {
-      var text = element.getAttribute("aria-label");
-      eleName =  text;
   } if(eleName=="" && element.getAttribute("data-dyn-title")!==null && element.getAttribute("data-dyn-title")!="") {
     var text = element.getAttribute("data-dyn-title");
     eleName = text;
