@@ -261,7 +261,7 @@ browser.runtime.onMessageExternal.addListener(
             sendResponse(true)
           })
         } else {
-          return sendResponse({ error: 'Selenium IDE is not active' })
+          return sendResponse({ error: 'The Test Mart is not active' })
         }
       })
     return true
