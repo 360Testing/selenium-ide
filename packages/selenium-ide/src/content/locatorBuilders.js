@@ -297,7 +297,7 @@ function getFullName(e, loopCount) {
       textElement = ele;
   } if(eleName=="" && element.id!="" && element.id != null && element.id !== undefined && document.querySelectorAll('[for='+element.id+']').length>0) {
       var ele = document.querySelectorAll('[for='+element.id+']')[0];
-      eleName = ele.text().trim();
+      eleName = ele.textContent.trim();
       textElement = ele;
   } if(eleName=="" && element.getAttribute("aria-label")!==null && element.getAttribute("aria-label")!="") {
       var text = element.getAttribute("aria-label");
