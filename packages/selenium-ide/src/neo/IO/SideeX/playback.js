@@ -508,6 +508,9 @@ async function doLocatorFallback() {
   for (let i = 0; i < targets.length; i++) {
     const target = targets[i][0]
     if(targets[i][1]!="fullname"){
+      Logger.warn(
+        `Trying target ${target}.`
+      )
       result = await node.execute(executor, options, target)
       if (result.hasOwnProperty('next')) {
         PlaybackState.setCommandState(node.command.id, PlaybackStates.Passed)
@@ -553,9 +556,11 @@ function doImplicitWait(error, commandId, target, implicitTime, implicitCount) {
   } else if (isElementNotFound(error)) {
     Logger.warn('Implcit wait element not found')
     if (isFallbackExclusion()) return overrideImplicitWait(commandId)
+    Logger.warn('if values1 = ' + implicitTime && Date.now() - implicitTime > 2000)
+    Logger.warn('if values1 = ' + !runImplicitOnce)
     if (implicitTime && Date.now() - implicitTime > 2000 && !runImplicitOnce) {
       runImplicitOnce = true
-      Logger.warn('Implcit wait do locator fallback ')
+      Logger.warn('Implcit wait do locator fallback early')
       return doLocatorFallback().then(result => {
         if (result && result.result === 'success') return result
       })
