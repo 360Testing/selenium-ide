@@ -548,9 +548,6 @@ function overrideImplicitWait(commandId) {
 }
 
 function doImplicitWait(error, commandId, target, implicitTime, implicitCount) {
-  Logger.warn(
-    `Starting implicit wait.`
-  )
   const timeout = getImplicitTimeout()
   if (isStopping()) {
     Logger.warn('Implcit wait stopping ')

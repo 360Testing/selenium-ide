@@ -397,24 +397,7 @@ LocatorBuilders.add('fullname', function(e) {
   return getFullName(e, 0);
 })
 
-LocatorBuilders.add('css:data-attr', function cssDataAttr(e) {
-  const dataAttributes = ['data-test', 'data-test-id']
-  for (let i = 0; i < dataAttributes.length; i++) {
-    const attr = dataAttributes[i]
-    const value = e.getAttribute(attr)
-    if (attr) {
-      return `css=*[${attr}="${value}"]`
-    }
-  }
-  return null
-})
 
-LocatorBuilders.add('id', function id(e) {
-  if (e.id) {
-    return 'id=' + e.id
-  }
-  return null
-})
 
 LocatorBuilders.add('linkText', function linkText(e) {
   if (e.nodeName == 'A') {
@@ -431,6 +414,25 @@ LocatorBuilders.add('linkText', function linkText(e) {
 LocatorBuilders.add('name', function name(e) {
   if (e.name) {
     return 'name=' + e.name
+  }
+  return null
+})
+
+LocatorBuilders.add('css:data-attr', function cssDataAttr(e) {
+  const dataAttributes = ['data-test', 'data-test-id']
+  for (let i = 0; i < dataAttributes.length; i++) {
+    const attr = dataAttributes[i]
+    const value = e.getAttribute(attr)
+    if (attr) {
+      return `css=*[${attr}="${value}"]`
+    }
+  }
+  return null
+})
+
+LocatorBuilders.add('id', function id(e) {
+  if (e.id) {
+    return 'id=' + e.id
   }
   return null
 })
@@ -493,6 +495,57 @@ LocatorBuilders.add('xpath:img', function xpathImg(e) {
 LocatorBuilders.add('xpath:attributes', function xpathAttr(e) {
   const PREFERRED_ATTRIBUTES = [
     'id',
+    'name',
+    'value',
+    'type',
+    'action',
+    'onclick',
+  ]
+  let i = 0
+
+  function attributesXPath(name, attNames, attributes) {
+    let locator = '//' + this.xpathHtmlElement(name) + '['
+    for (i = 0; i < attNames.length; i++) {
+      if (i > 0) {
+        locator += ' and '
+      }
+      let attName = attNames[i]
+      locator += '@' + attName + '=' + this.attributeValue(attributes[attName])
+    }
+    locator += ']'
+    return this.preciseXPath(locator, e)
+  }
+
+  if (e.attributes) {
+    let atts = e.attributes
+    let attsMap = {}
+    for (i = 0; i < atts.length; i++) {
+      let att = atts[i]
+      attsMap[att.name] = att.value
+    }
+    let names = []
+    // try preferred attributes
+    for (i = 0; i < PREFERRED_ATTRIBUTES.length; i++) {
+      let name = PREFERRED_ATTRIBUTES[i]
+      if (attsMap[name] != null) {
+        names.push(name)
+        let locator = attributesXPath.call(
+          this,
+          e.nodeName.toLowerCase(),
+          names,
+          attsMap
+        )
+        if (e == this.findElement(locator)) {
+          return locator
+        }
+      }
+    }
+  }
+  return null
+})
+
+LocatorBuilders.add('xpath:attributesnoid', function xpathAttr(e) {
+  const PREFERRED_ATTRIBUTES = [
     'name',
     'value',
     'type',
