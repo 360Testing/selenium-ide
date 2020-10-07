@@ -498,6 +498,9 @@ function isElementNotFound(error) {
 }
 
 async function doLocatorFallback() {
+  Logger.warn(
+    `Trying locator fallback.`
+  )
   const node = PlaybackState.currentExecutingCommandNode
   const targets = node.command.targets
   let result
@@ -544,6 +547,9 @@ function overrideImplicitWait(commandId) {
 }
 
 function doImplicitWait(error, commandId, target, implicitTime, implicitCount) {
+  Logger.warn(
+    `Starting implicit wait.`
+  )
   const timeout = getImplicitTimeout()
   if (isStopping()) {
     Logger.warn('Implcit wait stopping ')
@@ -576,10 +582,10 @@ function doImplicitWait(error, commandId, target, implicitTime, implicitCount) {
         implicitTime = ''
       })
     } else {
-      Logger.warn('Implcit waiting ')
+      //Logger.warn('Implcit waiting ')
       implicitCount++
       if (implicitCount == 1) {
-        Logger.warn('Implcit wait implicittime = 1 ')
+        //Logger.warn('Implcit wait implicittime = 1 ')
         implicitTime = Date.now()
       }
       PlaybackState.setCommandState(
