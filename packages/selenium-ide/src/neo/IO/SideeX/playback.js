@@ -30,6 +30,7 @@ let breakOnNextCommand = false
 let executor = undefined
 var prevTarget = ""
 var prevCommand = ""
+var runImplicitOnce = false
 
 export function play(currUrl, exec, variables) {
   baseUrl = currUrl
@@ -420,6 +421,7 @@ function doSeleniumCommand(commandNode, implicitTime, implicitCount) {
           implicitCount
         )
       } else {
+        runImplicitOnce = false
         if (PlaybackState.playbackOptions.assertionsDisabled) {
           PlaybackState.setCommandState(id, PlaybackStates.Passed)
         } else {
@@ -475,6 +477,7 @@ function doPluginCommand(commandNode, implicitTime, implicitCount) {
           implicitCount
         )
       } else {
+        runImplicitOnce = false
         PlaybackState.setCommandState(
           id,
           err instanceof FatalError || err instanceof NoResponseError
@@ -504,13 +507,15 @@ async function doLocatorFallback() {
 
   for (let i = 0; i < targets.length; i++) {
     const target = targets[i][0]
-    result = await node.execute(executor, options, target)
-    if (result.hasOwnProperty('next')) {
-      PlaybackState.setCommandState(node.command.id, PlaybackStates.Passed)
-      Logger.warn(
-        `Element found with secondary locator ${target}. To use it by default, update the test step to use it as the primary locator.`
-      )
-      break
+    if(targets[i][1]!="fullname"){
+      result = await node.execute(executor, options, target)
+      if (result.hasOwnProperty('next')) {
+        PlaybackState.setCommandState(node.command.id, PlaybackStates.Passed)
+        Logger.warn(
+          `Element found with secondary locator ${target}. To use it by default, update the test step to use it as the primary locator.`
+        )
+        break
+      }
     }
   }
 
@@ -548,7 +553,14 @@ function doImplicitWait(error, commandId, target, implicitTime, implicitCount) {
   } else if (isElementNotFound(error)) {
     Logger.warn('Implcit wait element not found')
     if (isFallbackExclusion()) return overrideImplicitWait(commandId)
-    if (implicitTime && Date.now() - implicitTime > timeout) {
+    if (implicitTime && Date.now() - implicitTime > 2000 && !runImplicitOnce) {
+      runImplicitOnce = true
+      Logger.warn('Implcit wait do locator fallback ')
+      return doLocatorFallback().then(result => {
+        if (result && result.result === 'success') return result
+      })
+    } else if (implicitTime && Date.now() - implicitTime > timeout) {
+      runImplicitOnce = false
       Logger.warn('Implcit wait do locator fallback ')
       return doLocatorFallback().then(result => {
         if (result && result.result === 'success') return result
