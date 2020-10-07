@@ -398,6 +398,23 @@ LocatorBuilders.add('fullname', function(e) {
 })
 
 
+LocatorBuilders.add('xpath:partid', function xpathHref(e) {
+  if (e.attributes && e.hasAttribute('id')) {
+    var idValue = e.getAttribute('id')
+    var splitID = idValue.split(/(\d+)/);
+    var xpathReturn = `//${e.nodeName.toLowerCase()}`
+    var strtwo = ""
+    for(var i=0; i < splitID.length; i++){
+      if(isNaN(splitID[i])){
+        xpathReturn = xpathReturn + "[contains(@id, '" + res[i] + "')]"
+      }
+    }
+    return this.preciseXPath(xpathReturn, e)
+  }
+  return null
+})
+
+
 
 LocatorBuilders.add('linkText', function linkText(e) {
   if (e.nodeName == 'A') {
