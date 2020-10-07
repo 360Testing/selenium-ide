@@ -560,21 +560,19 @@ function doImplicitWait(error, commandId, target, implicitTime, implicitCount) {
     )
     return false
   } else if (isElementNotFound(error)) {
-    Logger.warn('Implcit wait element not found')
     if (isFallbackExclusion()) return overrideImplicitWait(commandId)
     var timetoFind = Date.now() - implicitTime
-    Logger.warn('if values1 = ' + implicitTime)
-    Logger.warn('if values1 = ' + timetoFind)
-    Logger.warn('if values1 = ' + !runImplicitOnce)
     if (implicitTime && Date.now() - implicitTime > 2000 && !runImplicitOnce) {
       runImplicitOnce = true
       Logger.warn('Implcit wait do locator fallback early')
       return doLocatorFallback().then(result => {
-        if (result && result.result === 'success') return result
+        if (result && result.result === 'success') {
+          runImplicitOnce = false
+          return result
+        }
       })
     } else if (implicitTime && Date.now() - implicitTime > timeout) {
       runImplicitOnce = false
-      Logger.warn('Implcit wait do locator fallback ')
       return doLocatorFallback().then(result => {
         if (result && result.result === 'success') return result
         reportError(`Implicit Wait timed out after ${timeout}ms`)
