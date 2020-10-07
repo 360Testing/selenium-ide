@@ -492,6 +492,7 @@ LocatorBuilders.add('xpath:img', function xpathImg(e) {
   return null
 })
 
+//change to using contains and splitting on number
 LocatorBuilders.add('xpath:attributes', function xpathAttr(e) {
   const PREFERRED_ATTRIBUTES = [
     'id',
