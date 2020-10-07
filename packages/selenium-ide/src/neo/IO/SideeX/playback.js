@@ -435,6 +435,7 @@ function doSeleniumCommand(commandNode, implicitTime, implicitCount) {
         return result
       }
     } else {
+      runImplicitOnce = false
       PlaybackState.setCommandState(id, PlaybackStates.Passed)
       return result
     }
@@ -553,6 +554,7 @@ function doImplicitWait(error, commandId, target, implicitTime, implicitCount) {
   const timeout = getImplicitTimeout()
   if (isStopping()) {
     Logger.warn('Implcit wait stopping ')
+    runImplicitOnce = false
     PlaybackState.setCommandState(
       commandId,
       PlaybackStates.Fatal,
