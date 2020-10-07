@@ -406,7 +406,7 @@ LocatorBuilders.add('xpath:partid', function xpathHref(e) {
     var strtwo = ""
     for(var i=0; i < splitID.length; i++){
       if(isNaN(splitID[i])){
-        xpathReturn = xpathReturn + "[contains(@id, '" + res[i] + "')]"
+        xpathReturn = xpathReturn + "[contains(@id, '" + splitID[i] + "')]"
       }
     }
     return this.preciseXPath(xpathReturn, e)
