@@ -556,7 +556,9 @@ function doImplicitWait(error, commandId, target, implicitTime, implicitCount) {
   } else if (isElementNotFound(error)) {
     Logger.warn('Implcit wait element not found')
     if (isFallbackExclusion()) return overrideImplicitWait(commandId)
-    Logger.warn('if values1 = ' + implicitTime && Date.now() - implicitTime > 2000)
+    var timetoFind = Date.now() - implicitTime
+    Logger.warn('if values1 = ' + implicitTime)
+    Logger.warn('if values1 = ' + timetoFind)
     Logger.warn('if values1 = ' + !runImplicitOnce)
     if (implicitTime && Date.now() - implicitTime > 2000 && !runImplicitOnce) {
       runImplicitOnce = true
