@@ -613,6 +613,38 @@ LocatorBuilders.add('xpath:attributesnoid', function xpathAttr(e) {
   return null
 })
 
+LocatorBuilders.add('xpath:idRelativePartial', function xpathIdRelative(e) {
+  let path = ''
+  let current = e
+  while (current != null) {
+    if (current.parentNode != null) {
+      path = this.relativeXPathFromParent(current) + path
+      if (
+        1 == current.parentNode.nodeType && // ELEMENT_NODE
+        current.parentNode.getAttribute('id')
+      ) {
+        var idValue = e.getAttribute('id')
+        var splitID = idValue.split(/(\d+)/);
+        var xpathReturn = `//${e.nodeName.toLowerCase()}`
+        var strtwo = ""
+        for(var i=0; i < splitID.length; i++){
+          if(isNaN(splitID[i])){
+            xpathReturn = xpathReturn + "[contains(@id, '" + splitID[i] + "')]"
+          }
+        }
+        return this.preciseXPath(xpathReturn +
+            path,
+          e
+        )
+      }
+    } else {
+      return null
+    }
+    current = current.parentNode
+  }
+  return null
+})
+
 LocatorBuilders.add('xpath:idRelative', function xpathIdRelative(e) {
   let path = ''
   let current = e
