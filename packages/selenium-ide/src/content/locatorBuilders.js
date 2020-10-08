@@ -403,7 +403,6 @@ LocatorBuilders.add('xpath:partid', function xpathHref(e) {
     var idValue = e.getAttribute('id')
     var splitID = idValue.split(/(\d+)/);
     var xpathReturn = `//${e.nodeName.toLowerCase()}`
-    var strtwo = ""
     for(var i=0; i < splitID.length; i++){
       if(isNaN(splitID[i])){
         xpathReturn = xpathReturn + "[contains(@id, '" + splitID[i] + "')]"
@@ -623,10 +622,9 @@ LocatorBuilders.add('xpath:idRelativePartial', function xpathIdRelative(e) {
         1 == current.parentNode.nodeType && // ELEMENT_NODE
         current.parentNode.getAttribute('id')
       ) {
-        var idValue = e.getAttribute('id')
+        var idValue = current.parentNode.getAttribute('id')
         var splitID = idValue.split(/(\d+)/);
-        var xpathReturn = `//${e.nodeName.toLowerCase()}`
-        var strtwo = ""
+        var xpathReturn = `//${current.parentNode.nodeName.toLowerCase()}`
         for(var i=0; i < splitID.length; i++){
           if(isNaN(splitID[i])){
             xpathReturn = xpathReturn + "[contains(@id, '" + splitID[i] + "')]"
