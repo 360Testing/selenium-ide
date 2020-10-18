@@ -269,7 +269,7 @@ LocatorBuilders.prototype.preciseXPath = function(xpath, e) {
   return 'xpath=' + xpath
 }
 
-function getFullName(e, loopCount) {
+function getVerifyName(e, loopCount) {
   var element = e;
   var document = element.ownerDocument;
   var eleName ="";
@@ -288,21 +288,156 @@ function getFullName(e, loopCount) {
       if(element.getAttribute("data-colindex")!==null && element.getAttribute("data-colindex")!=""){
         eleName = eleName + " row"
       }
-  } if(eleName=="" && element.id!="" && element.id != null && element.id !== undefined && document.querySelectorAll('[for='+element.id+']').length>0) {
-    var ele = document.querySelectorAll('[for='+element.id+']')[0];
+  } if(eleName=="" && element.id!="" && element.id != null && element.id !== undefined && document.querySelectorAll("[for='"+element.id+"']").length>0) {
+    var ele = document.querySelectorAll("[for='"+element.id+"']")[0];
     eleName = ele.textContent.trim();
     textElement = ele;
 } if(eleName=="" && element.getAttribute("aria-label")!==null && element.getAttribute("aria-label")!="") {
     var text = element.getAttribute("aria-label");
     eleName =  text;
-}if(eleName=="" && element.textContent!=""){
-      var eleName= element.textContent.trim();
-  } if(eleName=="" && element.getAttribute("aria-labelledby")!==null && element.getAttribute("aria-labelledby")!="") {
+} if(eleName=="" && element.getAttribute("aria-labelledby")!==null && element.getAttribute("aria-labelledby")!="") {
       var id_to_find = element.getAttribute("aria-labelledby");
       var ele = document.getElementById(id_to_find);
       eleName = ele.textContent.trim();
       textElement = ele;
-  } if(eleName=="" && element.getAttribute("data-dyn-title")!==null && element.getAttribute("data-dyn-title")!="") {
+  }if(eleName=="" && element.getAttribute("aria-describedby")!==null && element.getAttribute("aria-describedby")!="") {
+    var id_to_find = element.getAttribute("aria-describedby");
+    var ele = document.getElementById(id_to_find);
+    eleName = ele.textContent.trim();
+    textElement = ele;
+} if(eleName=="" && element.textContent!=""){
+  var eleName= element.textContent.trim();
+}if(eleName=="" && element.getAttribute("data-dyn-title")!==null && element.getAttribute("data-dyn-title")!="") {
+    var text = element.getAttribute("data-dyn-title");
+    eleName = text;
+  }if(eleName=="" && element.getAttribute("alt")!==null && element.getAttribute("alt")!="") {
+    var text = element.getAttribute("alt");
+    eleName = text;
+  }
+  if(eleName=="" && element.getAttribute("value")!==null && element.getAttribute("value")!="") {
+      var text = element.getAttribute("value");
+      eleName = text;
+  } if(eleName=="" && element.getAttribute("title")!==null && element.getAttribute("title")!="") {
+      var text = element.getAttribute("title");
+      eleName = text;
+  } if(eleName=="" && element.getAttribute("id")!==null && element.getAttribute("id")!="") {
+      var text = element.getAttribute("id");
+      eleName = text;
+  } if(eleName==""){
+    eleName = "unnamed";
+  }
+  
+  var elems = document.querySelectorAll("*")
+  var arrayLength = elems.length;
+  
+  if(eleName != "unnamed" && count>1){
+      eleName = eleName+"["+count+"]";
+  }
+  
+  function isDescendant(parent, child) {
+    var node = child.parentNode;
+    while (node != null) {
+        if (node == parent) {
+            return true;
+        }
+        node = node.parentNode;
+    }
+    return false;
+}
+
+
+if(eleName != "unnamed" && count==0){
+   var visibleEles = [];
+     for (var i = 0; i < arrayLength; i++) {
+         if(elems[i].textContent == eleName){
+             var rect = elems[i].getBoundingClientRect();
+             
+             if(rect.top ==0 && rect.right ==0 && rect.bottom == 0 && rect.left ==0){
+               //log element not visible?
+             }
+             else{
+                 if(visibleEles.length>0){
+                     var isDesc = false;
+                     for (var j = 0; j < visibleEles.length; j++) {
+                       if(isDescendant(visibleEles[j],elems[i])){
+                           isDesc = true
+                       }
+                     }
+                     if(!isDesc){
+                         count = count+1
+                         visibleEles[visibleEles.length-1] = elems[i]
+                     }
+                 }else{
+                   visibleEles[0] = elems[i]
+                   count = count + 1;
+                 }
+               
+               //console.log(rect.top, rect.right, rect.bottom, rect.left);
+               //console.log(document.defaultView.getComputedStyle(elems[i], "").getPropertyValue("display"));
+         //console.log(document.defaultView.getComputedStyle(elems[i], "").getPropertyValue("visibility"));
+               //console.log(elems[i])
+             }
+         }
+         if(count>1 && elems[i]==textElement){
+             eleName = eleName+"["+count+"]";
+         }
+     }
+ }
+  if(eleName == "unnamed"){
+    if(loopCount < 6){
+      eleName = getVerifyName(e.parentNode, loopCount+1)
+    }
+  }
+  return eleName;
+}
+
+
+function getFullName(e, loopCount) {
+  var element = e;
+  var document = element.ownerDocument;
+  var eleName ="";
+  var textElement=element;
+  var count = 0;
+
+
+  if(element.getAttribute("data-dyn-savedtooltip")!==null && element.getAttribute("data-dyn-savedtooltip")!="") {
+    var text = element.getAttribute("data-dyn-savedtooltip");
+    eleName =  text;
+  }
+  if(eleName=="" && element.getAttribute("aria-label")!==null && element.getAttribute("aria-label")!=""){
+      var eleName = element.getAttribute("aria-label");
+      var quickcount = 0
+      var elems = document.querySelectorAll("[aria-label='"+eleName+"']");
+      for (var i = 0; i < arrayLength; i++) {
+          quickcount = quickcount + 1
+          if(elems[i]==element){
+              count = quickcount;
+          }
+      }
+      if(element.getAttribute("data-colindex")!==null && element.getAttribute("data-colindex")!=""){
+        eleName = eleName + " row"
+      }
+  } if(eleName=="" && element.id!="" && element.id != null && element.id !== undefined && document.querySelectorAll("[for='"+element.id+"']").length>0) {
+    var ele = document.querySelectorAll("[for='"+element.id+"']")[0];
+    eleName = ele.textContent.trim();
+    textElement = ele;
+} if(eleName=="" && element.getAttribute("aria-label")!==null && element.getAttribute("aria-label")!="") {
+    var text = element.getAttribute("aria-label");
+    eleName =  text;
+}  if(eleName=="" && element.getAttribute("aria-labelledby")!==null && element.getAttribute("aria-labelledby")!="") {
+      var id_to_find = element.getAttribute("aria-labelledby");
+      var ele = document.getElementById(id_to_find);
+      eleName = ele.textContent.trim();
+      textElement = ele;
+  } if(eleName=="" && element.getAttribute("aria-describedby")!==null && element.getAttribute("aria-describedby")!="") {
+    var id_to_find = element.getAttribute("aria-describedby");
+    var ele = document.getElementById(id_to_find);
+    eleName = ele.textContent.trim();
+    textElement = ele;
+}if(eleName=="" && element.textContent!=""){
+  var eleName= element.textContent.trim();
+}
+if(eleName=="" && element.getAttribute("data-dyn-title")!==null && element.getAttribute("data-dyn-title")!="") {
     var text = element.getAttribute("data-dyn-title");
     eleName = text;
   }if(eleName=="" && element.getAttribute("alt")!==null && element.getAttribute("alt")!="") {
@@ -385,7 +520,6 @@ if(eleName != "unnamed" && count==0){
   return eleName;
 }
 
-
 /*
  * ===== builders =====
  */
@@ -396,6 +530,7 @@ if(eleName != "unnamed" && count==0){
 LocatorBuilders.add('fullname', function(e) {
   return getFullName(e, 0);
 })
+
 
 
 LocatorBuilders.add('xpath:partid', function xpathHref(e) {
@@ -732,4 +867,8 @@ LocatorBuilders.add('xpath:innerText', function xpathInnerText(el) {
 LocatorBuilders.add('title', function(e) {
   var document = e.ownerDocument;
   return "title="+document.title;
+})
+
+LocatorBuilders.add('verifyname', function(e) {
+  return getVerifyName(e, 0);
 })
