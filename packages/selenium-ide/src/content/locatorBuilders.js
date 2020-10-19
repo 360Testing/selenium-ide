@@ -362,6 +362,9 @@ if(eleName != "unnamed" && count==0){
                        if(isDescendant(visibleEles[j],elems[i])){
                            isDesc = true
                        }
+                       if(isDescendant(elems[i],visibleEles[j])){
+                        isDesc = true
+                       }
                      }
                      if(!isDesc){
                          count = count+1
@@ -490,6 +493,9 @@ if(eleName != "unnamed" && count==0){
                      for (var j = 0; j < visibleEles.length; j++) {
                        if(isDescendant(visibleEles[j],elems[i])){
                            isDesc = true
+                       }
+                       if(isDescendant(elems[i],visibleEles[j])){
+                        isDesc = true
                        }
                      }
                      if(!isDesc){
