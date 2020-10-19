@@ -384,6 +384,9 @@ if(eleName != "unnamed" && count==0){
          if(count>1 && elems[i]==textElement){
              eleName = eleName+"["+count+"]";
          }
+         if(elems[i]==textElement){
+          break;
+         }
      }
  }
   if(eleName == "unnamed"){
@@ -501,8 +504,18 @@ if(eleName != "unnamed" && count==0){
                      if(!isDesc){
                          count = count+1
                          visibleEles[visibleEles.length-1] = elems[i]
+                         console.log("recording element "+ count);
+                         console.log(rect.top, rect.right, rect.bottom, rect.left);
+                         console.log(document.defaultView.getComputedStyle(elems[i], "").getPropertyValue("display"));
+                         console.log(document.defaultView.getComputedStyle(elems[i], "").getPropertyValue("visibility"));
+                         console.log(elems[i])
                      }
                  }else{
+                   console.log("recording element 1");
+                   console.log(rect.top, rect.right, rect.bottom, rect.left);
+                   console.log(document.defaultView.getComputedStyle(elems[i], "").getPropertyValue("display"));
+                   console.log(document.defaultView.getComputedStyle(elems[i], "").getPropertyValue("visibility"));
+                   console.log(elems[i])
                    visibleEles[0] = elems[i]
                    count = count + 1;
                  }
@@ -515,6 +528,9 @@ if(eleName != "unnamed" && count==0){
          }
          if(count>1 && elems[i]==textElement){
              eleName = eleName+"["+count+"]";
+         }
+         if(elems[i]==textElement){
+          break;
          }
      }
  }
